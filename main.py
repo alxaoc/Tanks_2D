@@ -4,12 +4,13 @@ import random
 from modules.classes import *
 from modules.mapsetting import map
 
+pygame.mixer.pre_init(44100, -16, 1, 512) # щоб не було затримки звуку
 pygame.init()
 
 pygame.mixer.music.load("sounds/back_music.wav")
-pygame.mixer.music.play(0)
+pygame.mixer.music.play()
 
-# strike = pygame.mixer.Sound("sounds/strike.wav")
+strike = pygame.mixer.Sound("sounds/strike.wav")
 
 background = pygame.image.load(os.path.join(PATH, 'images/background.png'))
 background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -17,6 +18,7 @@ background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
 font = pygame.font.Font(None, 120)
 winner1_text = font.render('BLUE WIN', True, (0,0,255))
 winner2_text = font.render('RED WIN', True, (255,0,0))
+
 
 
 x = 0
@@ -38,15 +40,15 @@ for row in map:
     x = 0
 
 
-player1  =  Player(1,1)
-player2 = Player2(1,3)
+player1 = Player(1, 1)
+player2 = Player2(1, 3)
 clock = pygame.time.Clock()
 
 is_game_running = True
 
 winner = None
 while is_game_running:
-    window.blit(background, (0,0))
+    window.blit(background, (0, 0))
     for block in blocks_list:
         block.blit()
         if block.colliderect(player1.bullet):
@@ -66,10 +68,12 @@ while is_game_running:
     player1.blit()
     player2.blit()
     if player1.colliderect(player2.bullet):
+        strike.play()
         winner = 2
         is_game_running = False
         is_winner = True
     elif player2.colliderect(player1.bullet):
+        strike.play()
         winner = 1
         is_game_running = False
         is_winner = True

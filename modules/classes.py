@@ -8,7 +8,7 @@ SCREEN_HEIGHT = 800
 STEP = 50
 
 window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption('Tanks 2D')
+pygame.display.set_caption('Tanks_2D')
 
 
 class Block(pygame.Rect):
